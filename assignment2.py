@@ -7,8 +7,10 @@
 mm_cs = """
     Dish:Class
     Step:Class
+    Cook:Class
     Action:Class
     Ingredient:Class
+    Tool:Class
     
     ################# Dish ####################
     # 'Dish' has an attribute 'dishname'
@@ -51,6 +53,9 @@ mm_cs = """
         constraint = `get_value(get_target(this)) > 0`;
     }
     
+    
+    ################### Cook ###########################
+    
     ##################### Action #######################
     # 'Action' have a flag indication if it is attended
     Action_attended:AttributeLink (Action -> Boolean) {
@@ -85,7 +90,19 @@ mm_cs = """
         optional = False;
     }
         
+    ################### Tool #####################
+    # 'Tools' are either a 'Stove, Oven, Pot Knife,...'
+    Tool_type:AttributeLink (Tool -> String) {
+        name = "type";
+        optional = False;
+    }
     
+    # 'Tools' can only appear a limited amoud of times, (based on tool type)
+    Tool_max_usage:AttributeLink (Tool -> Integer) {
+        name = "max_usage";
+        optional = False;
+        constraint = `get_value(get_target(this)) > 0`;
+    }
     
 """
 
