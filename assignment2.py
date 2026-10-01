@@ -80,10 +80,6 @@ mm_cs = """
     Mixing_is_action:Inheritance (Mixing -> Action)
     Baking_is_action:Inheritance (Baking -> Action)
     
-    # 'Actions' have a 'tool'
-    Action_tool:AttributeLink (Action -> Tool) {
-        name = "tool";
-    
     
     ##################### Ingredient #######################
     # 'Ingredient' have a 'unit'
