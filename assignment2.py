@@ -5,7 +5,9 @@
 
 # Meta-model
 mm_cs = """
-    Dish:Class
+    Dish:Class {
+        lower_cardinality = 1;
+    }
     Step:Class
     Cook:Class
     Action:Class {
