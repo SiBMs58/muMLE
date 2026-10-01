@@ -6,6 +6,7 @@
 # Meta-model
 mm_cs = """
     Dish:Class
+    Step:Class
     
     # 'Dish' has an attribute 'dishname'
     Dish_dishname:AttributeLink (Dish -> String) {
@@ -17,26 +18,34 @@ mm_cs = """
     Dish_difficulty:AttributeLink (Dish -> Integer) {
         name = "difficulty";
         optional = False;
-        constraint = `get_value(this) > 0`;
+        constraint = `get_value(get_target(this)) > 0`;
     }
     
     # 'Dish' has an non-negative attribute 'cooktime'
     Dish_cooktime:AttributeLink (Dish -> Integer) {
-        name = "cooktime";'
+        name = "cooktime";
         optional = False;
-        constraint = `get_value(this) >= 0`;
+        constraint = `get_value(get_target(this)) >= 0`;
     }
         
     # 'Dish' has an attribute 'serves' above 0
     Dish_serves:AttributeLink (Dish -> Integer) {
         name = "serves";
-        optional = False;Œ
-        constraint = `get_value(this) > 0`;
+        optional = False;
+        constraint = `get_value(get_target(this)) > 0`;
     }
         
     # 'Dish' has at least one 'step'
     Dish_step:Association (Dish -> Step) {
         target_lower_cardinality = 1;
+    }
+    
+    
+    # 'Step' has an 'number', which sart with 1 and have no gaps
+    Step_number:AttributeLink (Step -> Integer) {
+        name = "number";
+        optional = False;
+        constraint = `get_value(get_target(this)) > 0`;
     }
     
 """
@@ -49,6 +58,11 @@ m_cs = """
         cooktime = 120;
         serves = 2;
     }
+
+    firstStep:Step {
+        number = 1;
+    }
+    dishFirstStep:Dish_step (myDish -> firstStep)
 """
 
 
