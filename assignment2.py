@@ -54,6 +54,7 @@ mm_cs = """
         target_lower_cardinality = 1;
     }
     
+    
     #################### Steps #########################
     # 'Step' has an 'number', which sart with 1 and have no gaps
     Step_number:AttributeLink (Step -> Integer) {
@@ -64,6 +65,8 @@ mm_cs = """
     
     
     ################### Cook ###########################
+    
+    
     
     ##################### Action #######################
     # 'Action' have a flag indication if it is attended
@@ -106,6 +109,7 @@ mm_cs = """
     Salt_is_ingredient:Inheritance (Salt -> Ingredient)
     Water_is_ingredient:Inheritance (Water -> Ingredient)
     Flour_is_ingredient:Inheritance (Flour -> Ingredient)
+      
         
     ################### Tool #####################
     # 'Tools' are either a 'Stove, Oven, Pot, Knife,...'
@@ -127,7 +131,6 @@ mm_cs = """
     Knife_is_tool:Inheritance (Knife -> Tool)
     
     # 'Tools' can only appear a limited amoud of times, (based on tool type) --> Added upper_cardinality to the class
-    
     
 """
 
