@@ -8,9 +8,16 @@ mm_cs = """
     Dish:Class
     Step:Class
     Cook:Class
-    Action:Class
-    Ingredient:Class
-    Tool:Class
+    Action:Class {
+        abstract = True;
+    }
+    Ingredient:Class {
+        abstract = True;
+    }
+    Tool:Class {
+        abstract = True;
+    }
+    
     
     ################# Dish ####################
     # 'Dish' has an attribute 'dishname'
@@ -63,11 +70,19 @@ mm_cs = """
         optional = False;
     }
     
-    # 'Actions' are either Cutting, Cooking, Mixinig, Baking,...
-    Action_type:AttributeLink (Action -> String) {
-        name = "type";
-        optional = False;
-    }
+    # 'Actions' are either Cutting, Cooking, Mixing, Baking,...
+    Cutting:Class
+    Cooking:Class
+    Mixing:Class
+    Baking:Class
+    Cutting_is_action:Inheritance (Cutting -> Action)
+    Cooking_is_action:Inheritance (Cooking -> Action)
+    Mixing_is_action:Inheritance (Mixing -> Action)
+    Baking_is_action:Inheritance (Baking -> Action)
+    
+    # 'Actions' have a 'tool'
+    Action_tool:AttributeLink (Action -> Tool) {
+        name = "tool";
     
     
     ##################### Ingredient #######################
@@ -85,24 +100,36 @@ mm_cs = """
     }
     
     # 'Ingredient' are either Noodles, Salt, Water, Flour,...
-    Ingredient_type:AttributeLink (Ingredient -> String) {
-        name = "type";
-        optional = False;
-    }
+    Noodles:Class
+    Salt:Class
+    Water:Class
+    Flour:Class
+    Noodles_is_ingredient:Inheritance (Noodles -> Ingredient)
+    Salt_is_ingredient:Inheritance (Salt -> Ingredient)
+    Water_is_ingredient:Inheritance (Water -> Ingredient)
+    Flour_is_ingredient:Inheritance (Flour -> Ingredient)
         
     ################### Tool #####################
-    # 'Tools' are either a 'Stove, Oven, Pot Knife,...'
-    Tool_type:AttributeLink (Tool -> String) {
-        name = "type";
-        optional = False;
+    # 'Tools' are either a 'Stove, Oven, Pot, Knife,...'
+    Stove:Class {
+        upper_cardinality = 2;
     }
+    Oven:Class {
+        upper_cardinality = 1;
+    }
+    Pot:Class {
+        upper_cardinality = 3;
+    }
+    Knife:Class {
+        upper_cardinality = 5;
+    }
+    Stove_is_tool:Inheritance (Stove -> Tool)
+    Oven_is_tool:Inheritance (Oven -> Tool)
+    Pot_is_tool:Inheritance (Pot -> Tool)
+    Knife_is_tool:Inheritance (Knife -> Tool)
     
-    # 'Tools' can only appear a limited amoud of times, (based on tool type)
-    Tool_max_usage:AttributeLink (Tool -> Integer) {
-        name = "max_usage";
-        optional = False;
-        constraint = `get_value(get_target(this)) > 0`;
-    }
+    # 'Tools' can only appear a limited amoud of times, (based on tool type) --> Added upper_cardinality to the class
+    
     
 """
 
