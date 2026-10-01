@@ -8,7 +8,9 @@ mm_cs = """
     Dish:Class
     Step:Class
     Action:Class
+    Ingredient:Class
     
+    ################# Dish ####################
     # 'Dish' has an attribute 'dishname'
     Dish_dishname:AttributeLink (Dish -> String) {
         name = "dishname";
@@ -41,7 +43,7 @@ mm_cs = """
         target_lower_cardinality = 1;
     }
     
-    
+    #################### Steps #########################
     # 'Step' has an 'number', which sart with 1 and have no gaps
     Step_number:AttributeLink (Step -> Integer) {
         name = "number";
@@ -49,7 +51,7 @@ mm_cs = """
         constraint = `get_value(get_target(this)) > 0`;
     }
     
-    
+    ##################### Action #######################
     # 'Action' have a flag indication if it is attended
     Action_attended:AttributeLink (Action -> Boolean) {
         name = "attended";
@@ -62,6 +64,27 @@ mm_cs = """
         optional = False;
     }
     
+    
+    ##################### Ingredient #######################
+    # 'Ingredient' have a 'unit'
+    Ingredient_unit:AttributeLink (Ingredient -> String) {
+        name = "unit";
+        optional = False;
+    }
+    
+    # 'Ingredient' have a 'amount' abouve 0
+    Ingredient_amount:AttributeLink (Ingredient -> Integer) {
+        name = "amount";
+        optional = False;
+        constraint = `get_value(get_target(this)) > 0`;
+    }
+    
+    # 'Ingredient' are either Noodles, Salt, Water, Flour,...
+    Ingredient_type:AttributeLink (Ingredient -> String) {
+        name = "type";
+        optional = False;
+    }
+        
     
     
 """
