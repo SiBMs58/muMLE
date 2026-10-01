@@ -7,6 +7,7 @@
 mm_cs = """
     Dish:Class
     Step:Class
+    Action:Class
     
     # 'Dish' has an attribute 'dishname'
     Dish_dishname:AttributeLink (Dish -> String) {
@@ -47,6 +48,21 @@ mm_cs = """
         optional = False;
         constraint = `get_value(get_target(this)) > 0`;
     }
+    
+    
+    # 'Action' have a flag indication if it is attended
+    Action_attended:AttributeLink (Action -> Boolean) {
+        name = "attended";
+        optional = False;
+    }
+    
+    # 'Actions' are either Cutting, Cooking, Mixinig, Baking,...
+    Action_type:AttributeLink (Action -> String) {
+        name = "type";
+        optional = False;
+    }
+    
+    
     
 """
 
